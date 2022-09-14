@@ -22,37 +22,37 @@
       <p class="text-primary font-weight-bold">Shapes</p>
       
       <ul class="ks-cboxtags">
-        <li><input @change="changeShape($event)" value="oval" type="checkbox" id="oval" checked><label for="oval">Oval</label></li>
-        <li><input @change="changeShape($event)" value="round" type="checkbox" id="round" checked><label for="round">Round</label></li>
-        <li><input @change="changeShape($event)" value="triangle" type="checkbox" id="triangle" checked><label for="triangle">Triangle</label></li>
-        <li><input @change="changeShape($event)" value="square" type="checkbox" id="square" checked><label for="square">Square</label></li>
-        <li><input @change="changeShape($event)" value="rectangle" type="checkbox" id="rectangle" checked><label for="rectangle">Rectangle</label></li>
+        <li><input @change="changeShape($event)" class="shape-check" value="oval" type="checkbox" id="oval" checked><label for="oval">Oval</label></li>
+        <li><input @change="changeShape($event)" class="shape-check" value="round" type="checkbox" id="round" checked><label for="round">Round</label></li>
+        <li><input @change="changeShape($event)" class="shape-check" value="triangle" type="checkbox" id="triangle" checked><label for="triangle">Triangle</label></li>
+        <li><input @change="changeShape($event)" class="shape-check" value="square" type="checkbox" id="square" checked><label for="square">Square</label></li>
+        <li><input @change="changeShape($event)" class="shape-check" value="rectangle" type="checkbox" id="rectangle" checked><label for="rectangle">Rectangle</label></li>
       </ul>
 
       <p class="text-primary font-weight-bold pt-4">Colors</p>
       <div class="mt-3">
       <label class="contain">
-        <input @change="filterColor($event)" type="checkbox" value="blue" checked>
+        <input @change="filterColor($event)" id="color-check" type="checkbox" value="blue" checked>
         <span class="checkmark checkmark-blue"></span>
       </label>
       <label class="contain">
-        <input @change="filterColor($event)" type="checkbox" value="red" checked>
+        <input @change="filterColor($event)" id="color-check" type="checkbox" value="red" checked>
         <span class="checkmark checkmark-red"></span>
       </label>
       <label class="contain">
-        <input @change="filterColor($event)" type="checkbox" value="green" checked>
+        <input @change="filterColor($event)" id="color-check" type="checkbox" value="green" checked>
         <span class="checkmark checkmark-green"></span>
       </label>
       <label class="contain">
-        <input @change="filterColor($event)" type="checkbox" value="yellow" checked>
+        <input @change="filterColor($event)" id="color-check" type="checkbox" value="yellow" checked>
         <span class="checkmark checkmark-yellow"></span>
       </label>
       <label class="contain">
-        <input @change="filterColor($event)" type="checkbox" value="cyan" checked>
+        <input @change="filterColor($event)" id="color-check" type="checkbox" value="cyan" checked>
         <span class="checkmark checkmark-cyan"></span>
       </label>
       <label class="contain">
-        <input @change="filterColor($event)" type="checkbox" value="gray" checked>
+        <input @change="filterColor($event)" id="color-check" type="checkbox" value="gray" checked>
         <span class="checkmark checkmark-gray"></span>
       </label>
       </div>
@@ -134,6 +134,10 @@ export default {
           this.items = data.items;
           this.activeShape = ['oval', 'round', 'triangle', 'square', 'rectangle'];
           this.activeColors.length == 6 ? this.title = 'All items' : this.title = 'Multiple items';
+          var boxes = document.querySelectorAll('.shape-check');
+          for (var i = 0; i < boxes.length; i++) {
+            boxes[i].checked = true;
+          }
         } else {
           this.items = newArray;
           this.activeShape.splice(this.activeShape.indexOf(e.target.value), 1);
@@ -196,6 +200,10 @@ export default {
           this.items = data.items;
           this.activeColors = ['red', 'green', 'yellow', 'cyan', 'gray', 'blue'];
           this.activeShape.length == 6 ? this.title = 'All items' : this.title = 'Multiple items';
+          var boxes = document.querySelectorAll('#color-check');
+          for (var i = 0; i < boxes.length; i++) {
+            boxes[i].checked = true;
+          }
         } else {
           this.activeColors.splice(this.activeColors.indexOf(e.target.value), 1);
           this.items = arr;
