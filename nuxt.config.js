@@ -67,7 +67,6 @@ export default {
   modules: [
     '@nuxtjs/axios',
     '@nuxtjs/auth-next',
-    'nuxt-basic-auth-module'
   ],
 
   auth: {

@@ -89,7 +89,7 @@ export default {
   data() {
     return {
       items: data.items,
-      activeShape: ['oval','round','triangle','square','rectangle'],
+      activeShape: ['oval', 'round', 'triangle', 'square', 'rectangle'],
       activeColors: ['red', 'green', 'yellow', 'cyan', 'gray', 'blue'],
       title: 'All items'
     }
@@ -103,7 +103,7 @@ export default {
 
     changeShape(e) {
       if (e.target.checked) {
-        var newArray = data.items.filter(data => data.shape == e.target.value);
+        var newArray = data.items.filter(data => data.shape == e.target.value && this.activeColors.includes(data.color));
         if (this.items.some(data => data.shape == e.target.value)) {
           this.items = this.items;
         } else {
@@ -113,13 +113,19 @@ export default {
           if (this.activeColors.length == 6 && this.activeShape.length == 5) {
             this.title = 'All items'
           } else if (this.activeShape.length == 6 && this.activeColors.length == 1) {
-            this.title = 'All '+this.activeColors[0]+' items';
+            this.title = 'All ' + this.activeColors[0] + ' items';
           } else if (this.activeShape.length > 1 && this.activeColors.length == 1) {
-            this.title = 'Multiple '+this.activeColors[0]+' items';
+            this.title = 'Multiple ' + this.activeColors[0] + ' items';
           } else if (this.activeColors.length > 1 && this.activeShape.length == 1) {
             this.title = 'Multiple ' + this.activeShape[0] + ' items';
           } else if (this.activeColors.length == 1 && this.activeShape.length == 1) {
-            this.title =  this.activeColors[0]+' '+this.activeShape[0]+' item'
+            this.title = this.activeColors[0] + ' ' + this.activeShape[0] + ' item'
+          } else if (this.activeColors.length == 6 && this.activeShape.length > 1) {
+            this.title = 'Multiple items'
+          } else if (this.activeShape.length == 5 && this.activeColors.length > 1) {
+            this.title = 'Multiple items'
+          } else if (this.activeShape.length > 1 && this.activeColors.length > 1) {
+            this.title = 'Multiple items'
           }
         }
       } else {
@@ -146,6 +152,8 @@ export default {
             this.title = 'Multiple items'
           } else if (this.activeShape.length == 5 && this.activeColors.length > 1) {
             this.title = 'Multiple items'
+          } else if (this.activeShape.length > 1 && this.activeColors.length > 1) {
+            this.title = 'Multiple items'
           }
         }
       }
@@ -153,8 +161,8 @@ export default {
 
     filterColor(e) {
       if (e.target.checked) {
-        var newArray = data.items.filter(data => data.color == e.target.value);
-        
+        var newArray = data.items.filter(data => data.color == e.target.value && this.activeShape.includes(data.shape));
+
         if (this.items.some(data => data.color == e.target.value)) {
           this.items = this.items;
         } else {
@@ -174,6 +182,8 @@ export default {
           } else if (this.activeColors.length == 6 && this.activeShape.length > 1) {
             this.title = 'Multiple items'
           } else if (this.activeShape.length == 5 && this.activeColors.length > 1) {
+            this.title = 'Multiple items'
+          } else if (this.activeShape.length > 1 && this.activeColors.length > 1) {
             this.title = 'Multiple items'
           }
         }
@@ -203,6 +213,8 @@ export default {
           } else if (this.activeColors.length == 6 && this.activeShape.length > 1) {
             this.title = 'Multiple items'
           } else if (this.activeShape.length == 5 && this.activeColors.length > 1) {
+            this.title = 'Multiple items'
+          } else if (this.activeShape.length > 1 && this.activeColors.length > 1) {
             this.title = 'Multiple items'
           }
         }

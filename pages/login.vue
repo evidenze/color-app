@@ -47,8 +47,8 @@ export default {
     data() {
         return {
             form: {
-                email: '',
-                password: ''
+                email: 'admin@colorapp.com',
+                password: 'admin'
             },
             formError: false,
             validationError: false,
