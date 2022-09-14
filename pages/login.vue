@@ -2,7 +2,7 @@
         <div>
             <div class="container mt-lg-5">
                 <div class="row">
-                    <div class="col-md-6 ml-auto mr-auto p-4">
+                    <div class="col-md-4 ml-auto mr-auto p-4">
                         <h5 class="text-center font-weight-bold">Login to color-app</h5>
                         <p class="pt-4">Email: admin@colorapp.com</p>
                         <p>Password: admin</p>

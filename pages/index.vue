@@ -119,7 +119,7 @@ export default {
           } else if (this.activeColors.length > 1 && this.activeShape.length == 1) {
             this.title = 'Multiple ' + this.activeShape[0] + ' items';
           } else if (this.activeColors.length == 1 && this.activeShape.length == 1) {
-            this.title = 'Rounded oval items'
+            this.title =  this.activeColors[0]+' '+this.activeShape[0]+' item'
           }
         }
       } else {
@@ -141,7 +141,7 @@ export default {
           } else if (this.activeColors.length > 1 && this.activeShape.length == 1) {
             this.title = 'Multiple ' + this.activeShape[0] + ' items';
           } else if (this.activeColors.length == 1 && this.activeShape.length == 1) {
-            this.title = 'Rounded oval items';
+            this.title = this.activeColors[0] + ' ' + this.activeShape[0] + ' item';
           } else if (this.activeColors.length == 6 && this.activeShape.length > 1) {
             this.title = 'Multiple items'
           } else if (this.activeShape.length == 5 && this.activeColors.length > 1) {
@@ -170,7 +170,7 @@ export default {
           } else if (this.activeColors.length > 1 && this.activeShape.length == 1) {
             this.title = 'Multiple ' + this.activeShape[0] + ' items';
           } else if (this.activeColors.length == 1 && this.activeShape.length == 1) {
-            this.title = 'Rounded oval items';
+            this.title = this.activeColors[0] + ' ' + this.activeShape[0] + ' item';
           } else if (this.activeColors.length == 6 && this.activeShape.length > 1) {
             this.title = 'Multiple items'
           } else if (this.activeShape.length == 5 && this.activeColors.length > 1) {
@@ -199,7 +199,7 @@ export default {
           } else if (this.activeColors.length > 1 && this.activeShape.length == 1) {
             this.title = 'Multiple ' + this.activeShape[0] + ' items';
           } else if (this.activeColors.length == 1 && this.activeShape.length == 1) {
-            this.title = 'Rounded oval items';
+            this.title = this.activeColors[0] + ' ' + this.activeShape[0] + ' item';
           } else if (this.activeColors.length == 6 && this.activeShape.length > 1) {
             this.title = 'Multiple items'
           } else if (this.activeShape.length == 5 && this.activeColors.length > 1) {
