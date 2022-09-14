@@ -3,26 +3,47 @@
     <div class="container">
       <h4>Filters</h4>
       <p class="text-primary font-weight-bold">Shapes</p>
-      <button @click="filterShape('oval')" class="btn rounded-pill btn-outline-secondary">Oval</button>
-      <button @click="filterShape('round')" class="btn rounded-pill btn-outline-secondary">Round</button>
-      <button @click="filterShape('triangle')" class="btn rounded-pill btn-outline-secondary">Triangle</button>
-      <button @click="filterShape('square')" class="btn rounded-pill btn-outline-secondary">Square</button>
-      <button @click="filterShape('rectangle')" class="btn rounded-pill btn-outline-secondary mt-2 mt-lg-0">Rectangle</button>
       
+      <ul class="ks-cboxtags">
+        <li><input @change="changeShape($event)" value="oval" type="checkbox" id="oval" checked><label for="oval">Oval</label></li>
+        <li><input @change="changeShape($event)" value="round" type="checkbox" id="round" checked><label for="round">Round</label></li>
+        <li><input @change="changeShape($event)" value="triangle" type="checkbox" id="triangle" checked><label for="triangle">Triangle</label></li>
+        <li><input @change="changeShape($event)" value="square" type="checkbox" id="square" checked><label for="square">Square</label></li>
+        <li><input @change="changeShape($event)" value="rectangle" type="checkbox" id="rectangle" checked><label for="rectangle">Rectangle</label></li>
+      </ul>
+
       <p class="text-primary font-weight-bold pt-4">Colors</p>
-      <div class="d-flex">
-        <div @click="filterColor('blue')" class="blue-color"></div>
-        <div @click="filterColor('red')" class="red-color"></div>
-        <div @click="filterColor('green')" class="green-color"></div>
-        <div @click="filterColor('yellow')" class="yellow-color"></div>
-        <div @click="filterColor('cyan')" class="cyan-color"></div>
-        <div @click="filterColor('gray')" class="gray-color"></div>
+      <div class="mt-3">
+      <label class="contain">
+        <input @change="filterColor($event)" type="checkbox" value="blue" checked>
+        <span class="checkmark checkmark-blue"></span>
+      </label>
+      <label class="contain">
+        <input @change="filterColor($event)" type="checkbox" value="red" checked>
+        <span class="checkmark checkmark-red"></span>
+      </label>
+      <label class="contain">
+        <input @change="filterColor($event)" type="checkbox" value="green" checked>
+        <span class="checkmark checkmark-green"></span>
+      </label>
+      <label class="contain">
+        <input @change="filterColor($event)" type="checkbox" value="yellow" checked>
+        <span class="checkmark checkmark-yellow"></span>
+      </label>
+      <label class="contain">
+        <input @change="filterColor($event)" type="checkbox" value="cyan" checked>
+        <span class="checkmark checkmark-cyan"></span>
+      </label>
+      <label class="contain">
+        <input @change="filterColor($event)" type="checkbox" value="gray" checked>
+        <span class="checkmark checkmark-gray"></span>
+      </label>
       </div>
 
       <h5 class="font-weight-bold pt-4">({{ items.length }})</h5>
       <div class="row mt-3">
         <div v-for="data in items" :key="data.id" class="col-md-4 mb-3">
-          <div class="card shadow bg-white text-center p-5 border-0">
+          <div class="card shadow bg-white text-center p-4 border-0">
             <div v-if="data.shape == 'round'" class="circle mr-auto ml-auto" :style="{background: data.color}">
             </div>
             <div v-if="data.shape == 'oval'" class="oval mr-auto ml-auto" :style="{background: data.color}">
@@ -52,48 +73,55 @@ export default {
       items: data.items,
       activeShape: '',
       activeColor: '',
+      checked: true
     }
   },
 
   methods: {
-    filterShape(shape) {
-      let activeColor = this.activeColor;
-      this.items = [];
-      var newArray = data.items.filter(function (el) {
-        if (activeColor == '') {
-          return el.shape == shape;
+    changeShape(e) {
+      if (e.target.checked) {
+        var newArray = data.items.filter(data => data.shape == e.target.value);
+        if (this.items.some(data => data.shape == e.target.value)) {
+          this.items = this.items;
         } else {
-          return el.shape == shape && el.color == activeColor;
+          this.items = this.items.concat(newArray);
         }
-      });
-
-      this.items = newArray;
-      this.activeShape = shape;
+      } else {
+        var newArray = this.items.filter(data => data.shape !== e.target.value);
+        if (!newArray.length) {
+          this.items = data.items;
+          this.checked = true;
+        } else {
+          this.items = newArray;
+        }
+      }
     },
 
-    filterColor(color) {
-      let activeShape = this.activeShape;
-      this.items = [];
-      var newArray = data.items.filter(function (el) {
-        if (activeShape == '') {
-          return el.color == color
+    filterColor(e) {
+      if (e.target.checked) {
+        var newArray = data.items.filter(data => data.color == e.target.value);
+        if (this.items.some(data => data.color == e.target.value)) {
+          this.items = this.items;
         } else {
-          return el.color == color && el.shape == activeShape;
+          this.items = this.items.concat(newArray);
         }
-      });
-
-      this.items = newArray;
-      this.activeColor = color;
-    }
+      } else {
+        var newArray = this.items.filter(data => data.color !== e.target.value);
+        if (!newArray.length) {
+          this.items = data.items;
+          this.checked = true;
+        } else {
+          this.items = newArray;
+        }
+      }
+    },
   }
 }
 </script>
 
 
-
 <style scoped>
-
-  .circle {
+.circle {
     width: 100px;
     height: 100px;
     border-radius: 50%;
@@ -167,4 +195,193 @@ export default {
     background: gray;
   }
 
+    ul.ks-cboxtags {
+      list-style: none;
+      padding-left: 0;
+    }
+  
+    ul.ks-cboxtags li {
+      display: inline;
+    }
+  
+    ul.ks-cboxtags li label {
+      display: inline-block;
+      background-color: rgba(255, 255, 255, .9);
+      border: 2px solid rgba(139, 139, 139, .3);
+      color: gray;
+      border-radius: 25px;
+      white-space: nowrap;
+      margin: 3px 0px;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      transition: all .2s;
+    }
+  
+    ul.ks-cboxtags li label {
+      padding: 5px 12px;
+      cursor: pointer;
+    }
+  
+    ul.ks-cboxtags li input[type="checkbox"]:checked+label {
+      border: 2px solid #eaeaea;
+      background-color: #eaeaea;
+      color: #000;
+      transition: all .2s;
+    }
+  
+    ul.ks-cboxtags li input[type="checkbox"] {
+      display: absolute;
+    }
+  
+    ul.ks-cboxtags li input[type="checkbox"] {
+      position: absolute;
+      opacity: 0;
+    }
+  
+    ul.ks-cboxtags li input[type="checkbox"]:focus+label {
+      border: 2px solid #eaeaea;
+    }
+
+    /* Customize the label (the container) */
+.contain {
+  display: inline;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.contain input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark-blue {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  background-color: blue;
+}
+
+/* When the checkbox is checked, add a blue background */
+.contain input:checked ~ .checkmark-blue {
+  background-color: blue;
+}
+
+.checkmark-red {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  background-color: red;
+}
+
+/* When the checkbox is checked, add a blue background */
+.contain input:checked~.checkmark-red {
+  background-color: red;
+}
+
+.checkmark-yellow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  background-color: yellow;
+}
+
+/* When the checkbox is checked, add a blue background */
+.contain input:checked~.checkmark-yellow {
+  background-color: yellow;
+}
+
+.checkmark-green {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  background-color: green;
+}
+
+/* When the checkbox is checked, add a blue background */
+.contain input:checked~.checkmark-green {
+  background-color: green;
+}
+
+.checkmark-cyan {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  background-color: cyan;
+}
+
+/* When the checkbox is checked, add a blue background */
+.contain input:checked~.checkmark-cyan {
+  background-color: cyan;
+}
+
+.checkmark-gray {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  background-color: gray;
+}
+
+/* When the checkbox is checked, add a blue background */
+.contain input:checked~.checkmark-gray {
+  background-color: gray;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.contain input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.contain .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
 </style>
