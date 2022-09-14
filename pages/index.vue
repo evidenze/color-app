@@ -1,6 +1,23 @@
 <template>
   <div>
-    <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container">
+      <a class="navbar-brand font-weight-bold" href="#">SHAPES</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <nuxt-link @click.native="logout" class="nav-link text-danger" to="#">Logout</nuxt-link>
+          </li>
+        </ul>
+      </div>
+      </div>
+    </nav>
+
+    <div class="container mt-4">
       <h4>Filters</h4>
       <p class="text-primary font-weight-bold">Shapes</p>
       
@@ -40,7 +57,7 @@
       </label>
       </div>
 
-      <h5 class="font-weight-bold pt-4">({{ items.length }})</h5>
+      <h5 class="font-weight-bold pt-4">{{ title }}: ({{ items.length }})</h5>
       <div class="row mt-3">
         <div v-for="data in items" :key="data.id" class="col-md-4 mb-3">
           <div class="card shadow bg-white text-center p-4 border-0">
@@ -67,17 +84,23 @@ import data from "~/static/items.json";
 
 export default {
   name: 'IndexPage',
+  middleware: 'auth',
 
   data() {
     return {
       items: data.items,
-      activeShape: '',
-      activeColor: '',
-      checked: true
+      activeShape: ['oval','round','triangle','square','rectangle'],
+      activeColors: ['red', 'green', 'yellow', 'cyan', 'gray', 'blue'],
+      title: 'All items'
     }
   },
 
   methods: {
+    async logout() {
+      await this.$auth.logout();
+      this.$router.push('/login');
+    },
+
     changeShape(e) {
       if (e.target.checked) {
         var newArray = data.items.filter(data => data.shape == e.target.value);
@@ -85,14 +108,45 @@ export default {
           this.items = this.items;
         } else {
           this.items = this.items.concat(newArray);
+          this.activeShape.push(e.target.value);
+
+          if (this.activeColors.length == 6 && this.activeShape.length == 5) {
+            this.title = 'All items'
+          } else if (this.activeShape.length == 6 && this.activeColors.length == 1) {
+            this.title = 'All '+this.activeColors[0]+' items';
+          } else if (this.activeShape.length > 1 && this.activeColors.length == 1) {
+            this.title = 'Multiple '+this.activeColors[0]+' items';
+          } else if (this.activeColors.length > 1 && this.activeShape.length == 1) {
+            this.title = 'Multiple ' + this.activeShape[0] + ' items';
+          } else if (this.activeColors.length == 1 && this.activeShape.length == 1) {
+            this.title = 'Rounded oval items'
+          }
         }
       } else {
         var newArray = this.items.filter(data => data.shape !== e.target.value);
         if (!newArray.length) {
           this.items = data.items;
-          this.checked = true;
+          this.activeShape = ['oval', 'round', 'triangle', 'square', 'rectangle'];
+          this.activeColors.length == 6 ? this.title = 'All items' : this.title = 'Multiple items';
         } else {
           this.items = newArray;
+          this.activeShape.splice(this.activeShape.indexOf(e.target.value), 1);
+
+          if (this.activeColors.length == 6 && this.activeShape.length == 5) {
+            this.title = 'All items'
+          } else if (this.activeShape.length == 6 && this.activeColors.length == 1) {
+            this.title = 'All ' + this.activeColors[0] + ' items';
+          } else if (this.activeShape.length > 1 && this.activeColors.length == 1) {
+            this.title = 'Multiple ' + this.activeColors[0] + ' items';
+          } else if (this.activeColors.length > 1 && this.activeShape.length == 1) {
+            this.title = 'Multiple ' + this.activeShape[0] + ' items';
+          } else if (this.activeColors.length == 1 && this.activeShape.length == 1) {
+            this.title = 'Rounded oval items';
+          } else if (this.activeColors.length == 6 && this.activeShape.length > 1) {
+            this.title = 'Multiple items'
+          } else if (this.activeShape.length == 5 && this.activeColors.length > 1) {
+            this.title = 'Multiple items'
+          }
         }
       }
     },
@@ -100,18 +154,57 @@ export default {
     filterColor(e) {
       if (e.target.checked) {
         var newArray = data.items.filter(data => data.color == e.target.value);
+        
         if (this.items.some(data => data.color == e.target.value)) {
           this.items = this.items;
         } else {
+          this.activeColors.push(e.target.value);
           this.items = this.items.concat(newArray);
+
+          if (this.activeColors.length == 6 && this.activeShape.length == 5) {
+            this.title = 'All items'
+          } else if (this.activeShape.length == 6 && this.activeColors.length == 1) {
+            this.title = 'All ' + this.activeColors[0] + ' items';
+          } else if (this.activeShape.length > 1 && this.activeColors.length == 1) {
+            this.title = 'Multiple ' + this.activeColors[0] + ' items';
+          } else if (this.activeColors.length > 1 && this.activeShape.length == 1) {
+            this.title = 'Multiple ' + this.activeShape[0] + ' items';
+          } else if (this.activeColors.length == 1 && this.activeShape.length == 1) {
+            this.title = 'Rounded oval items';
+          } else if (this.activeColors.length == 6 && this.activeShape.length > 1) {
+            this.title = 'Multiple items'
+          } else if (this.activeShape.length == 5 && this.activeColors.length > 1) {
+            this.title = 'Multiple items'
+          }
         }
       } else {
-        var newArray = this.items.filter(data => data.color !== e.target.value);
-        if (!newArray.length) {
+        var arr = this.items.filter(function (data) {
+          return data.color !== e.target.value && this.indexOf(data) < 0;
+        }, this.activeShape);
+
+        if (!arr.length) {
           this.items = data.items;
-          this.checked = true;
+          this.activeColors = ['red', 'green', 'yellow', 'cyan', 'gray', 'blue'];
+          this.activeShape.length == 6 ? this.title = 'All items' : this.title = 'Multiple items';
         } else {
-          this.items = newArray;
+          this.activeColors.splice(this.activeColors.indexOf(e.target.value), 1);
+          this.items = arr;
+
+          if (this.activeColors.length == 6 && this.activeShape.length == 5) {
+            this.title = 'All items'
+          } else if (this.activeShape.length == 6 && this.activeColors.length == 1) {
+            this.title = 'All ' + this.activeColors[0] + ' items';
+          } else if (this.activeShape.length > 1 && this.activeColors.length == 1) {
+            this.title = 'Multiple ' + this.activeColors[0] + ' items';
+          } else if (this.activeColors.length > 1 && this.activeShape.length == 1) {
+            this.title = 'Multiple ' + this.activeShape[0] + ' items';
+          } else if (this.activeColors.length == 1 && this.activeShape.length == 1) {
+            this.title = 'Rounded oval items';
+          } else if (this.activeColors.length == 6 && this.activeShape.length > 1) {
+            this.title = 'Multiple items'
+          } else if (this.activeShape.length == 5 && this.activeColors.length > 1) {
+            this.title = 'Multiple items'
+          }
         }
       }
     },
