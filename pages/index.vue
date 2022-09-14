@@ -131,7 +131,7 @@ export default {
       } else {
         var newArray = this.items.filter(data => data.shape !== e.target.value);
         if (!newArray.length) {
-          this.items = data.items;
+          this.items = data.items.filter(data => this.activeColors.includes(data.color));
           this.activeShape = ['oval', 'round', 'triangle', 'square', 'rectangle'];
           this.activeColors.length == 6 ? this.title = 'All items' : this.title = 'Multiple items';
           var boxes = document.querySelectorAll('.shape-check');
@@ -197,7 +197,7 @@ export default {
         }, this.activeShape);
 
         if (!arr.length) {
-          this.items = data.items;
+          this.items = data.items.filter(data => this.activeShape.includes(data.shape));
           this.activeColors = ['red', 'green', 'yellow', 'cyan', 'gray', 'blue'];
           this.activeShape.length == 6 ? this.title = 'All items' : this.title = 'Multiple items';
           var boxes = document.querySelectorAll('#color-check');
