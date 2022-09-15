@@ -116,7 +116,7 @@ export default {
             this.title = 'All ' + this.activeColors[0] + ' items';
           } else if (this.activeShape.length > 1 && this.activeColors.length == 1) {
             this.title = 'Multiple ' + this.activeColors[0] + ' items';
-          } else if (this.activeColors.length > 1 && this.activeShape.length == 1) {
+          } else if (this.activeColors.length < 6  && this.activeShape.length == 1) {
             this.title = 'Multiple ' + this.activeShape[0] + ' items';
           } else if (this.activeColors.length == 1 && this.activeShape.length == 1) {
             this.title = this.activeColors[0] + ' ' + this.activeShape[0] + ' item'
@@ -150,7 +150,7 @@ export default {
             this.title = 'All ' + this.activeColors[0] + ' items';
           } else if (this.activeShape.length > 1 && this.activeColors.length == 1) {
             this.title = 'Multiple ' + this.activeColors[0] + ' items';
-          } else if (this.activeColors.length > 1 && this.activeShape.length == 1) {
+          } else if (this.activeColors.length < 6 && this.activeShape.length == 1) {
             this.title = 'Multiple ' + this.activeShape[0] + ' items';
           } else if (this.activeColors.length == 1 && this.activeShape.length == 1) {
             this.title = this.activeColors[0] + ' ' + this.activeShape[0] + ' item';
@@ -183,7 +183,7 @@ export default {
             this.title = 'All ' + this.activeColors[0] + ' items';
           } else if (this.activeShape.length > 1 && this.activeColors.length == 1) {
             this.title = 'Multiple ' + this.activeColors[0] + ' items';
-          } else if (this.activeColors.length > 1 && this.activeShape.length == 1) {
+          } else if (this.activeColors.length < 6 && this.activeShape.length == 1) {
             this.title = 'Multiple ' + this.activeShape[0] + ' items';
           } else if (this.activeColors.length == 1 && this.activeShape.length == 1) {
             this.title = this.activeColors[0] + ' ' + this.activeShape[0] + ' item';
@@ -220,7 +220,7 @@ export default {
             this.title = 'All ' + this.activeColors[0] + ' items';
           } else if (this.activeShape.length > 1 && this.activeColors.length == 1) {
             this.title = 'Multiple ' + this.activeColors[0] + ' items';
-          } else if (this.activeColors.length > 1 && this.activeShape.length == 1) {
+          } else if (this.activeColors.length < 6 && this.activeShape.length == 1) {
             this.title = 'Multiple ' + this.activeShape[0] + ' items';
           } else if (this.activeColors.length == 1 && this.activeShape.length == 1) {
             this.title = this.activeColors[0] + ' ' + this.activeShape[0] + ' item';
