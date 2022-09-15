@@ -3,6 +3,12 @@
 ## Build Setup
 
 ```bash
+# Get the project
+git clone https://github.com/evidenze/color-app.git color-app
+
+# Change directory
+cd color-app
+
 # install dependencies
 $ npm install
 
