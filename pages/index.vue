@@ -126,6 +126,8 @@ export default {
             this.title = 'Multiple items'
           } else if (this.activeShape.length > 1 && this.activeColors.length > 1) {
             this.title = 'Multiple items'
+          } else if (this.activeShape.length == 1 && this.activeColors.length == 6) {
+            this.title = 'All ' + this.activeShape[0] + ' items'
           }
         }
       } else {
@@ -158,6 +160,8 @@ export default {
             this.title = 'Multiple items'
           } else if (this.activeShape.length > 1 && this.activeColors.length > 1) {
             this.title = 'Multiple items'
+          } else if (this.activeShape.length == 1 && this.activeColors.length == 6) {
+            this.title = 'All ' + this.activeShape[0] + ' items'
           }
         }
       }
@@ -189,6 +193,8 @@ export default {
             this.title = 'Multiple items'
           } else if (this.activeShape.length > 1 && this.activeColors.length > 1) {
             this.title = 'Multiple items'
+          } else if (this.activeShape.length == 1 && this.activeColors.length == 6) {
+            this.title = 'All ' + this.activeShape[0] + ' items'
           }
         }
       } else {
@@ -224,6 +230,8 @@ export default {
             this.title = 'Multiple items'
           } else if (this.activeShape.length > 1 && this.activeColors.length > 1) {
             this.title = 'Multiple items'
+          } else if (this.activeShape.length == 1 && this.activeColors.length == 6) {
+            this.title = 'All ' + this.activeShape[0] + ' items'
           }
         }
       }
