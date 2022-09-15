@@ -112,7 +112,7 @@ export default {
 
           if (this.activeColors.length == 6 && this.activeShape.length == 5) {
             this.title = 'All items'
-          } else if (this.activeShape.length == 6 && this.activeColors.length == 1) {
+          } else if (this.activeShape.length == 5 && this.activeColors.length == 1) {
             this.title = 'All ' + this.activeColors[0] + ' items';
           } else if (this.activeShape.length > 1 && this.activeColors.length == 1) {
             this.title = 'Multiple ' + this.activeColors[0] + ' items';
@@ -146,7 +146,7 @@ export default {
 
           if (this.activeColors.length == 6 && this.activeShape.length == 5) {
             this.title = 'All items'
-          } else if (this.activeShape.length == 6 && this.activeColors.length == 1) {
+          } else if (this.activeShape.length == 5 && this.activeColors.length == 1) {
             this.title = 'All ' + this.activeColors[0] + ' items';
           } else if (this.activeShape.length > 1 && this.activeColors.length == 1) {
             this.title = 'Multiple ' + this.activeColors[0] + ' items';
@@ -179,7 +179,7 @@ export default {
 
           if (this.activeColors.length == 6 && this.activeShape.length == 5) {
             this.title = 'All items'
-          } else if (this.activeShape.length == 6 && this.activeColors.length == 1) {
+          } else if (this.activeShape.length == 5 && this.activeColors.length == 1) {
             this.title = 'All ' + this.activeColors[0] + ' items';
           } else if (this.activeShape.length > 1 && this.activeColors.length == 1) {
             this.title = 'Multiple ' + this.activeColors[0] + ' items';
@@ -205,7 +205,7 @@ export default {
         if (!arr.length) {
           this.items = data.items.filter(data => this.activeShape.includes(data.shape));
           this.activeColors = ['red', 'green', 'yellow', 'cyan', 'gray', 'blue'];
-          this.activeShape.length == 6 ? this.title = 'All items' : this.title = 'Multiple items';
+          this.activeShape.length == 5 ? this.title = 'All items' : this.title = 'Multiple items';
           var boxes = document.querySelectorAll('#color-check');
           for (var i = 0; i < boxes.length; i++) {
             boxes[i].checked = true;
@@ -216,7 +216,7 @@ export default {
 
           if (this.activeColors.length == 6 && this.activeShape.length == 5) {
             this.title = 'All items'
-          } else if (this.activeShape.length == 6 && this.activeColors.length == 1) {
+          } else if (this.activeShape.length == 5 && this.activeColors.length == 1) {
             this.title = 'All ' + this.activeColors[0] + ' items';
           } else if (this.activeShape.length > 1 && this.activeColors.length == 1) {
             this.title = 'Multiple ' + this.activeColors[0] + ' items';
